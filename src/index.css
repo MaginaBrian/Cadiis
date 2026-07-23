@@ -1,0 +1,232 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap");
+
+:root {
+  --forest-ink: #102a2a;
+  --pine: #1f4b43;
+  --pine-soft: #2e5c50;
+  --sage: #8fa89a;
+  --brass: #b08d3c;
+  --parchment: #f3efe4;
+  --white: #ffffff;
+
+  --font-display: "Playfair Display", "Georgia", serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "IBM Plex Mono", "Menlo", monospace;
+
+  --max-width: 1180px;
+  --gutter: clamp(1.25rem, 4vw, 4rem);
+
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: var(--parchment);
+  color: var(--forest-ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  margin: 0;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  font-family: inherit;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.eyebrow--brass { color: var(--brass); }
+.eyebrow--sage { color: var(--sage); }
+.eyebrow--pine { color: var(--pine); }
+.eyebrow--parchment { color: var(--parchment); }
+
+.rule {
+  width: 46px;
+  height: 3px;
+  background: var(--brass);
+  border: none;
+  border-radius: 2px;
+}
+
+.section {
+  position: relative;
+  padding: clamp(4rem, 9vw, 7rem) 0;
+}
+
+.section--dark {
+  background: var(--forest-ink);
+  color: var(--parchment);
+}
+
+.section--light {
+  background: var(--parchment);
+  color: var(--forest-ink);
+}
+
+.section--white {
+  background: var(--white);
+  color: var(--forest-ink);
+}
+
+.section-head {
+  max-width: 760px;
+  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.section-head h2 {
+  font-size: clamp(1.9rem, 3.4vw, 2.75rem);
+  margin: 0.9rem 0 1.2rem;
+}
+
+.section-head p {
+  font-size: 1.05rem;
+  opacity: 0.86;
+  max-width: 640px;
+}
+
+.card {
+  background: var(--white);
+  border: 1px solid rgba(16, 42, 42, 0.12);
+  border-radius: 18px;
+  padding: 1.9rem 1.8rem;
+}
+
+.section--dark .card {
+  background: rgba(243, 239, 228, 0.04);
+  border: 1px solid rgba(143, 168, 154, 0.25);
+  color: var(--parchment);
+}
+
+.card h3 {
+  font-size: 1.15rem;
+  margin: 0.9rem 0 0.6rem;
+  font-weight: 700;
+}
+
+.card p {
+  font-size: 0.96rem;
+  opacity: 0.82;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.85rem 1.6rem;
+  border-radius: 999px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-decoration: none;
+  transition: transform 0.18s ease, background 0.18s ease, color 0.18s ease;
+}
+
+.btn--brass {
+  background: var(--brass);
+  color: var(--forest-ink);
+}
+
+.btn--brass:hover {
+  transform: translateY(-2px);
+  background: #c49f49;
+}
+
+.btn--outline {
+  border-color: rgba(243, 239, 228, 0.4);
+  color: var(--parchment);
+}
+
+.btn--outline:hover {
+  transform: translateY(-2px);
+  background: rgba(243, 239, 228, 0.08);
+}
+
+.btn--outline-dark {
+  border-color: rgba(16, 42, 42, 0.3);
+  color: var(--forest-ink);
+}
+
+.btn--outline-dark:hover {
+  transform: translateY(-2px);
+  background: rgba(16, 42, 42, 0.06);
+}
+
+.wave-divider {
+  display: block;
+  width: 100%;
+  height: auto;
+  position: relative;
+  margin-top: -1px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .card {
+    padding: 1.5rem 1.4rem;
+  }
+}
