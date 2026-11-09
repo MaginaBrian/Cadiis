@@ -22,6 +22,7 @@ function NavItem({ href, className, onClick, children }) {
 function ServicesMenu({ onNavigate }) {
   const [open, setOpen] = useState(false);
   const menu = useRef(null);
+  const fromHover = useRef(false);
 
   useEffect(() => {
     if (!open) return undefined;
@@ -43,15 +44,24 @@ function ServicesMenu({ onNavigate }) {
     <div
       className="nav__menu"
       ref={menu}
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
+      onMouseEnter={() => {
+        fromHover.current = true;
+        setOpen(true);
+      }}
+      onMouseLeave={() => {
+        fromHover.current = false;
+        setOpen(false);
+      }}
     >
       <button
         type="button"
         className="nav__menu-btn"
         aria-expanded={open}
         aria-controls="services-menu"
-        onClick={() => setOpen((value) => !value)}
+        onClick={() => {
+          if (fromHover.current) return;
+          setOpen((value) => !value);
+        }}
       >
         Services
       </button>

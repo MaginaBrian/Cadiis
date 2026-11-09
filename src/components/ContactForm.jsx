@@ -57,9 +57,7 @@ export default function ContactForm() {
       <button className="btn btn--brass" type="submit">Send enquiry</button>
       {opened ? (
         <p role="status">Your email app should open with this enquiry addressed to {contact.email}. If it does not, write to that address directly.</p>
-      ) : (
-        <p className="fine">This opens your email app. The message is not stored on the website.</p>
-      )}
+      ) : null}
     </form>
   );
 }
