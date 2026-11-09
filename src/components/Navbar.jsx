@@ -1,135 +1,154 @@
-import { useEffect, useState } from "react";
-import { nav } from "../data/content";
+import { useEffect, useRef, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { nav, whatWeDo } from "../data/content";
+import ThemeToggle from "./ThemeToggle";
+import "./Navbar.css";
 
-export default function Navbar() {
+function NavItem({ href, className, onClick, children }) {
+  if (href.startsWith("/#")) {
+    return (
+      <Link to={{ pathname: "/", hash: href.slice(1) }} className={className} onClick={onClick}>
+        {children}
+      </Link>
+    );
+  }
+  return (
+    <Link to={href} className={className} onClick={onClick}>
+      {children}
+    </Link>
+  );
+}
+
+function ServicesMenu({ onNavigate }) {
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const menu = useRef(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    if (!open) return undefined;
+    const close = (event) => {
+      if (!menu.current?.contains(event.target)) setOpen(false);
+    };
+    const onKey = (event) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("pointerdown", close);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("pointerdown", close);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
 
   return (
-    <header
-      style={{
-        position: "sticky",
-        top: 0,
-        zIndex: 50,
-        background: scrolled ? "rgba(16,42,42,0.96)" : "transparent",
-        backdropFilter: scrolled ? "blur(6px)" : "none",
-        transition: "background 0.25s ease",
-        borderBottom: scrolled ? "1px solid rgba(143,168,154,0.2)" : "1px solid transparent",
-      }}
+    <div
+      className="nav__menu"
+      ref={menu}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
     >
-      <div
-        className="container"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          height: "76px",
-        }}
+      <button
+        type="button"
+        className="nav__menu-btn"
+        aria-expanded={open}
+        aria-controls="services-menu"
+        onClick={() => setOpen((value) => !value)}
       >
-        <a
-          href="#top"
-          style={{ display: "flex", alignItems: "center", gap: "0.6rem", textDecoration: "none" }}
-        >
-          <img src="/images/logo.png" alt="CADIIS" style={{ height: "36px", width: "auto" }} />
-        </a>
-
-        <nav
-          style={{
-            display: "flex",
-            gap: "1.8rem",
-            alignItems: "center",
-          }}
-          className="nav-desktop"
-        >
-          {nav.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              style={{
-                color: "var(--parchment)",
-                fontSize: "0.92rem",
-                fontWeight: 500,
-                textDecoration: "none",
-                opacity: 0.9,
-              }}
-            >
-              {item.label}
-            </a>
+        Services
+      </button>
+      {open ? (
+        <div id="services-menu" className="nav__dropdown" role="menu">
+          <Link to={{ pathname: "/", hash: "#what-we-do" }} role="menuitem" onClick={onNavigate}>
+            All services
+          </Link>
+          {whatWeDo.items.map((item) => (
+            <Link key={item.id} to={`/services/${item.id}`} role="menuitem" onClick={onNavigate}>
+              {item.title}
+            </Link>
           ))}
-          <a href="#contact" className="btn btn--brass" style={{ padding: "0.6rem 1.3rem" }}>
-            Get in touch
-          </a>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+export default function Navbar({ solid = false }) {
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const bar = useRef(null);
+  const location = useLocation();
+  const close = () => setOpen(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 12);
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      if (bar.current) bar.current.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`;
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [location.pathname, location.hash]);
+
+  return (
+    <header className={`nav ${scrolled || solid ? "nav--scrolled" : ""} ${solid ? "nav--solid" : ""}`}>
+      <div className="progress" ref={bar} aria-hidden="true" />
+      <div className="container nav__row">
+        <Link to="/" className="nav__logo" aria-label="CADIIS home">
+          <img src="/images/logo-trim.png" alt="CADIIS" />
+        </Link>
+
+        <nav className="nav__links" aria-label="Primary">
+          <NavItem href={nav[0].href} className="nav__link">{nav[0].label}</NavItem>
+          <ServicesMenu onNavigate={close} />
+          {nav.slice(1).map((item) => (
+            <NavItem key={item.href} href={item.href} className="nav__link">
+              {item.label}
+            </NavItem>
+          ))}
         </nav>
 
-        <button
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-          className="nav-toggle"
-          style={{
-            display: "none",
-            background: "none",
-            border: "1px solid rgba(243,239,228,0.35)",
-            borderRadius: "8px",
-            width: "42px",
-            height: "42px",
-            color: "var(--parchment)",
-            fontSize: "1.1rem",
-            cursor: "pointer",
-          }}
-        >
-          {open ? "✕" : "☰"}
-        </button>
+        <div className="nav__tools">
+          <ThemeToggle />
+          <Link to="/profile" className="btn btn--ghost nav__profile">Profile</Link>
+          <NavItem href="/#contact" className="btn btn--brass nav__cta">Get in touch</NavItem>
+          <button
+            className="nav__toggle"
+            type="button"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            onClick={() => setOpen((value) => !value)}
+          >
+            {open ? "✕" : "☰"}
+          </button>
+        </div>
       </div>
 
-      {open && (
-        <div
-          className="nav-mobile-panel"
-          style={{
-            background: "#0c2323",
-            borderTop: "1px solid rgba(143,168,154,0.2)",
-          }}
-        >
-          <div className="container" style={{ display: "flex", flexDirection: "column", padding: "1.2rem" }}>
-            {nav.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                style={{
-                  color: "var(--parchment)",
-                  padding: "0.75rem 0",
-                  textDecoration: "none",
-                  borderBottom: "1px solid rgba(143,168,154,0.12)",
-                }}
-              >
-                {item.label}
-              </a>
+      {open ? (
+        <div className="nav__panel">
+          <div className="container nav__panel-inner">
+            <NavItem href="/#who-we-are" onClick={close}>Who we are</NavItem>
+            <p className="nav__group">Services</p>
+            {whatWeDo.items.map((item) => (
+              <Link key={item.id} to={`/services/${item.id}`} onClick={close}>
+                {item.title}
+              </Link>
             ))}
-            <a
-              href="#contact"
-              onClick={() => setOpen(false)}
-              className="btn btn--brass"
-              style={{ marginTop: "1rem", justifyContent: "center" }}
-            >
+            {nav.slice(1).map((item) => (
+              <NavItem key={item.href} href={item.href} onClick={close}>
+                {item.label}
+              </NavItem>
+            ))}
+            <Link to="/profile" onClick={close}>Download profile</Link>
+            <NavItem href="/#contact" className="btn btn--brass" onClick={close}>
               Get in touch
-            </a>
+            </NavItem>
           </div>
         </div>
-      )}
-
-      <style>{`
-        @media (max-width: 880px) {
-          .nav-desktop { display: none !important; }
-          .nav-toggle { display: flex !important; align-items: center; justify-content: center; }
-        }
-      `}</style>
+      ) : null}
     </header>
   );
 }

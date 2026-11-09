@@ -1,47 +1,37 @@
 import { whoWeAre } from "../data/content";
+import SectionHead from "./SectionHead";
 
 export default function WhoWeAre() {
+  const [lead, ...rest] = whoWeAre.pillars;
   return (
     <section id="who-we-are" className="section section--light">
       <div className="container">
-        <div className="section-head">
-          <p className="eyebrow eyebrow--pine">{whoWeAre.kicker}</p>
-          <h2>{whoWeAre.heading}</h2>
+        <SectionHead index="01" kicker={whoWeAre.kicker} title={whoWeAre.heading} highlight="resilience">
           <p>{whoWeAre.body}</p>
-        </div>
+        </SectionHead>
 
-        <div
-          style={{
-            background: "var(--forest-ink)",
-            color: "var(--parchment)",
-            borderRadius: "20px",
-            padding: "clamp(1.6rem, 4vw, 2.4rem)",
-            marginBottom: "clamp(2.5rem, 5vw, 3.5rem)",
-          }}
-        >
-          <h3 style={{ fontSize: "clamp(1.2rem, 2.4vw, 1.5rem)", marginBottom: "0.7rem" }}>
-            {whoWeAre.callout.heading}
-          </h3>
-          <p style={{ opacity: 0.85, maxWidth: "760px" }}>{whoWeAre.callout.body}</p>
-        </div>
+        <blockquote className="pullquote">
+          <span className="pullquote__mark" aria-hidden="true">
+            “
+          </span>
+          <p>{whoWeAre.callout.heading}</p>
+          <footer>{whoWeAre.callout.body}</footer>
+        </blockquote>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-            gap: "1.4rem",
-          }}
-        >
-          {whoWeAre.pillars.map((p) => (
-            <div className="card" key={p.title}>
-              {p.icon ? (
-                <img src={p.icon} alt="" width={48} height={48} style={{ marginBottom: "0.9rem" }} />
-              ) : (
-                <hr className="rule" />
-              )}
-              <h3>{p.title}</h3>
-              <p>{p.body}</p>
-            </div>
+        <article className="card card--row pillar-feature">
+          <img src={lead.icon} alt="" className="card-icon" width={52} height={52} />
+          <div>
+            <h3>{lead.title}</h3>
+            <p>{lead.body}</p>
+          </div>
+        </article>
+        <div className="card-grid">
+          {rest.map((pillar) => (
+            <article className="card" key={pillar.title}>
+              <img src={pillar.icon} alt="" className="card-icon" width={52} height={52} />
+              <h3>{pillar.title}</h3>
+              <p>{pillar.body}</p>
+            </article>
           ))}
         </div>
       </div>

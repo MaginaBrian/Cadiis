@@ -12,6 +12,7 @@ export default function Founder() {
     <section id="founder" className="section section--light">
       <div className="container">
         <div className="section-head">
+          <p className="section-no">06 <span>/ 06</span></p>
           <p className="eyebrow eyebrow--pine">{founder.kicker}</p>
           <h2>{founder.heading}</h2>
         </div>
@@ -31,8 +32,9 @@ export default function Founder() {
               width: "108px",
               height: "108px",
               borderRadius: "50%",
-              background: "var(--forest-ink)",
-              color: "var(--parchment)",
+              background: "linear-gradient(135deg, var(--forest-ink), var(--pine))",
+              color: "var(--gold-light)",
+              boxShadow: "0 0 0 4px var(--parchment), 0 0 0 6px var(--brass), 0 20px 36px -16px rgba(16,42,42,0.6)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -61,9 +63,10 @@ export default function Founder() {
           }}
         >
           <div
+            className="reveal"
             style={{
-              background: "var(--parchment)",
-              border: "1px solid rgba(16,42,42,0.1)",
+              background: "var(--ivory)",
+              border: "1px solid rgba(176,141,60,0.35)",
               borderRadius: "18px",
               padding: "1.8rem",
             }}
@@ -78,9 +81,10 @@ export default function Founder() {
             </ul>
           </div>
           <div
+            className="reveal"
             style={{
-              background: "var(--parchment)",
-              border: "1px solid rgba(16,42,42,0.1)",
+              background: "var(--ivory)",
+              border: "1px solid rgba(176,141,60,0.35)",
               borderRadius: "18px",
               padding: "1.8rem",
             }}

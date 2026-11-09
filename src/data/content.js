@@ -1,10 +1,7 @@
 export const nav = [
-  { label: "Who we are", href: "#who-we-are" },
-  { label: "What we do", href: "#what-we-do" },
-  { label: "Services", href: "#services" },
-  { label: "Who we work with", href: "#who-we-work-with" },
-  { label: "Founder", href: "#founder" },
-  { label: "Contact", href: "#contact" },
+  { label: "Who we are", href: "/#who-we-are" },
+  { label: "Who we work with", href: "/#who-we-work-with" },
+  { label: "Founder", href: "/#founder" },
 ];
 
 export const hero = {
@@ -16,7 +13,11 @@ export const hero = {
   ],
   body: "CADIIS delivers climate, actuarial, data and inclusive insurance solutions for institutions building resilience across Africa and beyond.",
   tag: "COMPANY PROFILE",
-  subtags: ["Actuarial analytics", "GIS & Earth observation", "Inclusive insurance", "Climate de-risking"],
+  // Swap these two files in public/images to change the hero collage.
+  collage: [
+    { src: "/images/scenes/agriculture-scene.webp", alt: "Wheat field in warm evening light" },
+    { src: "/images/scenes/livestock-scene.webp", alt: "Cattle crossing a sunlit pasture" },
+  ],
 };
 
 export const whoWeAre = {
@@ -96,8 +97,9 @@ export const serviceDetails = [
     heading: "Actuarial rigor, translated into workable products.",
     intro:
       "The heart of climate and agricultural insurance is not abstract concept notes. It is building products that are technically defensible, commercially viable, operationally executable and understandable to customers.",
-    image: "/images/chart-resilience.png",
-    imageLabel: "Resilience Finance",
+    image: "/images/chart-resilience.webp",
+    imageAlt: "Stacks of coins with small ladders",
+    imageLabel: "Resilience finance",
     checklist: [
       "Design trigger calibration and basis-risk assessment using historical, satellite and operational data.",
       "Perform pricing, loss-cost modelling, scenario analysis and premium adequacy testing.",
@@ -118,17 +120,18 @@ export const serviceDetails = [
     heading: "Spatial intelligence for decisions that cannot wait.",
     intro:
       "CADIIS uses GIS, remote sensing and Earth observation to make climate-risk programmes more measurable, timely and scalable. We turn complex spatial datasets into evidence that insurers, governments, agribusinesses and funders can act on.",
-    image: "/images/satellite-grid.png",
-    imageLabel: "GIS and Earth Observation",
+    image: "/images/satellite-grid.webp",
+    imageAlt: "A satellite above cloud-covered Earth",
+    imageLabel: "GIS and Earth observation",
     steps: [
       { n: "1", title: "Observe", body: "Rainfall, vegetation, exposure, soils, hazards and livelihood indicators." },
       { n: "2", title: "Interpret", body: "Spatial analysis, anomaly detection, vulnerability profiling and verification." },
       { n: "3", title: "Decide", body: "Underwriting, trigger setting, monitoring, early action and verification." },
     ],
     focus: [
-      { title: "Agriculture", body: "Crop condition monitoring, yield estimation, weather and vegetation indices, area characterization.", image: "/images/scenes/agriculture-scene.png" },
-      { title: "Livestock", body: "Rangeland monitoring, forage availability, drought impact analysis and herd-risk intelligence.", image: "/images/scenes/livestock-scene.png" },
-      { title: "Climate finance", body: "Exposure mapping, resilience targeting, disaster-risk financing and programme monitoring.", image: "/images/scenes/climate-finance-scene.png" },
+      { title: "Agriculture", body: "Crop condition monitoring, yield estimation, weather and vegetation indices, area characterization.", image: "/images/scenes/agriculture-scene.webp", alt: "Wheat field in warm evening light" },
+      { title: "Livestock", body: "Rangeland monitoring, forage availability, drought impact analysis and herd-risk intelligence.", image: "/images/scenes/livestock-scene.webp", alt: "Cattle crossing a sunlit pasture" },
+      { title: "Climate finance", body: "Exposure mapping, resilience targeting, disaster-risk financing and programme monitoring.", image: "/images/scenes/climate-finance-scene.webp", alt: "Climate finance graphic with a seedling and stacked coins" },
     ],
     theme: "light",
   },
@@ -176,9 +179,30 @@ export const serviceDetails = [
       { title: "Documentation", body: "Product notes, policy wording, technical manuals, operational workflows and governance controls.", icon: "/images/icons/documentation.png" },
       { title: "Calculating agent services", body: "Independent data processing, index calculation, reporting and payout recommendation support.", icon: "/images/icons/calculating-agent.png" },
     ],
-    image: "/images/chart-climate.png",
-    imageLabel: "Climate Risk Intelligence",
+    image: "/images/chart-climate.webp",
+    imageAlt: "Power station and transmission lines beyond a field",
+    imageLabel: "Climate risk intelligence",
     theme: "dark",
+  },
+  {
+    id: "capacity",
+    kicker: "CAPACITY DEVELOPMENT",
+    heading: "Technical assistance that stays in the institution.",
+    intro:
+      "CADIIS supports training, institutional strengthening, stakeholder learning and the embedding of quality implementation practice.",
+    grid: [
+      {
+        title: "Capacity and operational readiness",
+        body: "Training, technical oversight, workflow design, dashboard inputs and governance structures.",
+        icon: "/images/icons/capacity.png",
+      },
+      {
+        title: "Stakeholder learning",
+        body: "Training and capacity building for the institutions that have to run the work after the assignment.",
+        icon: "/images/icons/built-for-use.png",
+      },
+    ],
+    theme: "light",
   },
 ];
 
@@ -259,10 +283,59 @@ export const founder = {
 export const contact = {
   heading: "Ready to build climate resilience that works in practice?",
   body: "CADIIS partners with institutions looking to turn climate-risk insight into practical, scalable protection and resilience solutions.",
+  email: "info@cadiis.com",
+  website: "https://www.cadiis.com",
+  linkedin: "Lawrence Kenduiywa",
   details: [
-    { label: "Website", value: "www.cadiis.com" },
-    { label: "Email", value: "info@cadiis.com" },
+    { label: "Website", value: "www.cadiis.com", href: "https://www.cadiis.com" },
+    { label: "Email", value: "info@cadiis.com", href: "mailto:info@cadiis.com" },
     { label: "Location", value: "Nairobi, Kenya" },
     { label: "LinkedIn", value: "Lawrence Kenduiywa" },
+  ],
+  interests: [
+    "Actuarial & insurance analytics",
+    "GIS, remote sensing & Earth observation",
+    "Climate de-risking & resilience finance",
+    "Inclusive insurance & market development",
+    "Product design & technical documentation",
+    "Capacity development & technical assistance",
+  ],
+};
+
+export const statement = {
+  before: "Insurance is one layer.",
+  emphasis: "Resilience is a system.",
+};
+
+export const proof = {
+  kicker: "WHERE WE WORK",
+  place: "Nairobi, Kenya",
+  reach: "Africa-wide",
+  body: "CADIIS is based in Nairobi and works with institutions building resilience across African markets.",
+};
+
+export const perspectives = {
+  kicker: "PERSPECTIVES",
+  heading: "How protection gets built.",
+  body: "Three ways into the work, each leading to the service behind it.",
+  items: [
+    {
+      title: "Insurance is one layer",
+      body: "Protection holds when analytics, early warning, adaptation and payout readiness sit in the same system.",
+      href: "/services/derisking",
+      label: "Climate de-risking",
+    },
+    {
+      title: "From observation to a decision",
+      body: "Spatial data earns its place when it changes underwriting, triggers, monitoring or early action.",
+      href: "/services/gis",
+      label: "Earth observation",
+    },
+    {
+      title: "A curve you can point at",
+      body: "Index design is easier to discuss when the trigger, the exit and the payout shape are visible.",
+      href: "/services/product",
+      label: "Product architecture",
+    },
   ],
 };
