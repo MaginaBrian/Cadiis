@@ -87,3 +87,14 @@ rule line.
 
 Typefaces: Playfair Display (headlines), Inter (body), IBM Plex Mono (eyebrows/labels).
 # CADIIS
+
+## Look & feel (lively old-money theme)
+
+Same five master colours, plus tints derived from them in `src/index.css`:
+`--emerald` (lively pine highlight), `--gold-light` / `--gold-deep` (foil gradient
+`--gold-foil`) and `--ivory`. Motion lives in `src/components/Hero.css`,
+`Navbar.css`, `src/hooks/useReveal.js` (scroll reveal) and `.foil-text` / `.card`
+rules in `index.css`. All motion switches off for `prefers-reduced-motion`.
+The hero collage photos are set in `content.js` → `hero.collage`.
+`public/images/logo-trim.png` is `logo.png` with its empty margins cropped (used in the nav and footer).
+# CAdiis
